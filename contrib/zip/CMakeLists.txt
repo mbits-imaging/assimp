@@ -28,12 +28,12 @@ if (NOT CMAKE_DISABLE_TESTING)
   add_sanitizers(${PROJECT_NAME} test_miniz.exe)
 endif()
 
-install(TARGETS ${PROJECT_NAME}
-        RUNTIME DESTINATION bin
-        ARCHIVE DESTINATION lib
-        LIBRARY DESTINATION lib
-        COMPONENT library)
-install(FILES ${PROJECT_SOURCE_DIR}/src/zip.h DESTINATION include)
+# install(TARGETS ${PROJECT_NAME}
+#         RUNTIME DESTINATION bin
+#         ARCHIVE DESTINATION lib
+#         LIBRARY DESTINATION lib
+#         COMPONENT library)
+# install(FILES ${PROJECT_SOURCE_DIR}/src/zip.h DESTINATION include)
 
 # uninstall target (https://gitlab.kitware.com/cmake/community/wikis/FAQ#can-i-do-make-uninstall-with-cmake)
 if(NOT TARGET uninstall)

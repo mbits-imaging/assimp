@@ -352,67 +352,67 @@ IF (NOT TARGET uninstall)
   ADD_CUSTOM_TARGET(uninstall "${CMAKE_COMMAND}" -P "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake")
 ENDIF()
 
-IF(HUNTER_ENABLED)
-  set(CONFIG_INSTALL_DIR "lib/cmake/${PROJECT_NAME}")
-  set(INCLUDE_INSTALL_DIR "include")
+# IF(HUNTER_ENABLED)
+#   set(CONFIG_INSTALL_DIR "lib/cmake/${PROJECT_NAME}")
+#   set(INCLUDE_INSTALL_DIR "include")
 
-  set(GENERATED_DIR "${CMAKE_CURRENT_BINARY_DIR}/generated")
+#   set(GENERATED_DIR "${CMAKE_CURRENT_BINARY_DIR}/generated")
 
-  # Configuration
-  set(VERSION_CONFIG "${GENERATED_DIR}/${PROJECT_NAME}ConfigVersion.cmake")
-  set(PROJECT_CONFIG "${GENERATED_DIR}/${PROJECT_NAME}Config.cmake")
-  set(TARGETS_EXPORT_NAME "${PROJECT_NAME}Targets")
-  set(NAMESPACE "${PROJECT_NAME}::")
+#   # Configuration
+#   set(VERSION_CONFIG "${GENERATED_DIR}/${PROJECT_NAME}ConfigVersion.cmake")
+#   set(PROJECT_CONFIG "${GENERATED_DIR}/${PROJECT_NAME}Config.cmake")
+#   set(TARGETS_EXPORT_NAME "${PROJECT_NAME}Targets")
+#   set(NAMESPACE "${PROJECT_NAME}::")
 
-  # Include module with fuction 'write_basic_package_version_file'
-  include(CMakePackageConfigHelpers)
+#   # Include module with fuction 'write_basic_package_version_file'
+#   include(CMakePackageConfigHelpers)
 
-  # Note: PROJECT_VERSION is used as a VERSION
-  write_basic_package_version_file("${VERSION_CONFIG}" COMPATIBILITY SameMajorVersion)
+#   # Note: PROJECT_VERSION is used as a VERSION
+#   write_basic_package_version_file("${VERSION_CONFIG}" COMPATIBILITY SameMajorVersion)
 
-  # Use variables:
-  #   * TARGETS_EXPORT_NAME
-  #   * PROJECT_NAME
-  configure_package_config_file(
-      "cmake/assimp-hunter-config.cmake.in"
-      "${PROJECT_CONFIG}"
-      INSTALL_DESTINATION "${CONFIG_INSTALL_DIR}"
-  )
+#   # Use variables:
+#   #   * TARGETS_EXPORT_NAME
+#   #   * PROJECT_NAME
+#   configure_package_config_file(
+#       "cmake/assimp-hunter-config.cmake.in"
+#       "${PROJECT_CONFIG}"
+#       INSTALL_DESTINATION "${CONFIG_INSTALL_DIR}"
+#   )
 
-  install(
-      FILES "${PROJECT_CONFIG}" "${VERSION_CONFIG}"
-      DESTINATION "${CONFIG_INSTALL_DIR}"
-  )
+#   # install(
+#   #     FILES "${PROJECT_CONFIG}" "${VERSION_CONFIG}"
+#   #     DESTINATION "${CONFIG_INSTALL_DIR}"
+#   # )
 
-  install(
-      EXPORT "${TARGETS_EXPORT_NAME}"
-      NAMESPACE "${NAMESPACE}"
-      DESTINATION "${CONFIG_INSTALL_DIR}"
-  )
-ELSE(HUNTER_ENABLED)
-  # cmake configuration files
-  CONFIGURE_FILE("${CMAKE_CURRENT_SOURCE_DIR}/assimp-config.cmake.in"         "${CMAKE_CURRENT_BINARY_DIR}/assimp-config.cmake" @ONLY IMMEDIATE)
-  CONFIGURE_FILE("${CMAKE_CURRENT_SOURCE_DIR}/assimpTargets.cmake.in"         "${CMAKE_CURRENT_BINARY_DIR}/assimpTargets.cmake" @ONLY IMMEDIATE)
-  IF (is_multi_config)
-    CONFIGURE_FILE("${CMAKE_CURRENT_SOURCE_DIR}/assimpTargets-debug.cmake.in"   "${CMAKE_CURRENT_BINARY_DIR}/assimpTargets-debug.cmake" @ONLY IMMEDIATE)
-    CONFIGURE_FILE("${CMAKE_CURRENT_SOURCE_DIR}/assimpTargets-release.cmake.in" "${CMAKE_CURRENT_BINARY_DIR}/assimpTargets-release.cmake" @ONLY IMMEDIATE)
-    SET(PACKAGE_TARGETS_FILE "${CMAKE_CURRENT_BINARY_DIR}/assimpTargets-debug.cmake" "${CMAKE_CURRENT_BINARY_DIR}/assimpTargets-release.cmake")
-  ELSEIF (CMAKE_BUILD_TYPE STREQUAL Debug)
-    CONFIGURE_FILE("${CMAKE_CURRENT_SOURCE_DIR}/assimpTargets-debug.cmake.in"   "${CMAKE_CURRENT_BINARY_DIR}/assimpTargets-debug.cmake" @ONLY IMMEDIATE)
-    SET(PACKAGE_TARGETS_FILE "${CMAKE_CURRENT_BINARY_DIR}/assimpTargets-debug.cmake")
-  ELSE()
-    CONFIGURE_FILE("${CMAKE_CURRENT_SOURCE_DIR}/assimpTargets-release.cmake.in" "${CMAKE_CURRENT_BINARY_DIR}/assimpTargets-release.cmake" @ONLY IMMEDIATE)
-    SET(PACKAGE_TARGETS_FILE "${CMAKE_CURRENT_BINARY_DIR}/assimpTargets-release.cmake")
-  ENDIF()
-  CONFIGURE_FILE("${CMAKE_CURRENT_SOURCE_DIR}/assimp-config-version.cmake.in" "${CMAKE_CURRENT_BINARY_DIR}/assimp-config-version.cmake" @ONLY IMMEDIATE)
-  #we should generated these scripts after CMake VERSION 3.0.2 using export(EXPORT ...) and write_basic_package_version_file(...)
-  INSTALL(FILES
-    "${CMAKE_CURRENT_BINARY_DIR}/assimp-config.cmake"
-    "${CMAKE_CURRENT_BINARY_DIR}/assimp-config-version.cmake"
-    "${CMAKE_CURRENT_BINARY_DIR}/assimpTargets.cmake"
-    ${PACKAGE_TARGETS_FILE}
-    DESTINATION "${ASSIMP_LIB_INSTALL_DIR}/cmake/assimp-${ASSIMP_VERSION_MAJOR}.${ASSIMP_VERSION_MINOR}" COMPONENT ${LIBASSIMP-DEV_COMPONENT})
-ENDIF(HUNTER_ENABLED)
+#   # install(
+#   #     EXPORT "${TARGETS_EXPORT_NAME}"
+#   #     NAMESPACE "${NAMESPACE}"
+#   #     DESTINATION "${CONFIG_INSTALL_DIR}"
+#   # )
+# ELSE(HUNTER_ENABLED)
+#   # cmake configuration files
+#   CONFIGURE_FILE("${CMAKE_CURRENT_SOURCE_DIR}/assimp-config.cmake.in"         "${CMAKE_CURRENT_BINARY_DIR}/assimp-config.cmake" @ONLY IMMEDIATE)
+#   CONFIGURE_FILE("${CMAKE_CURRENT_SOURCE_DIR}/assimpTargets.cmake.in"         "${CMAKE_CURRENT_BINARY_DIR}/assimpTargets.cmake" @ONLY IMMEDIATE)
+#   IF (is_multi_config)
+#     CONFIGURE_FILE("${CMAKE_CURRENT_SOURCE_DIR}/assimpTargets-debug.cmake.in"   "${CMAKE_CURRENT_BINARY_DIR}/assimpTargets-debug.cmake" @ONLY IMMEDIATE)
+#     CONFIGURE_FILE("${CMAKE_CURRENT_SOURCE_DIR}/assimpTargets-release.cmake.in" "${CMAKE_CURRENT_BINARY_DIR}/assimpTargets-release.cmake" @ONLY IMMEDIATE)
+#     SET(PACKAGE_TARGETS_FILE "${CMAKE_CURRENT_BINARY_DIR}/assimpTargets-debug.cmake" "${CMAKE_CURRENT_BINARY_DIR}/assimpTargets-release.cmake")
+#   ELSEIF (CMAKE_BUILD_TYPE STREQUAL Debug)
+#     CONFIGURE_FILE("${CMAKE_CURRENT_SOURCE_DIR}/assimpTargets-debug.cmake.in"   "${CMAKE_CURRENT_BINARY_DIR}/assimpTargets-debug.cmake" @ONLY IMMEDIATE)
+#     SET(PACKAGE_TARGETS_FILE "${CMAKE_CURRENT_BINARY_DIR}/assimpTargets-debug.cmake")
+#   ELSE()
+#     CONFIGURE_FILE("${CMAKE_CURRENT_SOURCE_DIR}/assimpTargets-release.cmake.in" "${CMAKE_CURRENT_BINARY_DIR}/assimpTargets-release.cmake" @ONLY IMMEDIATE)
+#     SET(PACKAGE_TARGETS_FILE "${CMAKE_CURRENT_BINARY_DIR}/assimpTargets-release.cmake")
+#   ENDIF()
+#   CONFIGURE_FILE("${CMAKE_CURRENT_SOURCE_DIR}/assimp-config-version.cmake.in" "${CMAKE_CURRENT_BINARY_DIR}/assimp-config-version.cmake" @ONLY IMMEDIATE)
+#   #we should generated these scripts after CMake VERSION 3.0.2 using export(EXPORT ...) and write_basic_package_version_file(...)
+#   INSTALL(FILES
+#     "${CMAKE_CURRENT_BINARY_DIR}/assimp-config.cmake"
+#     "${CMAKE_CURRENT_BINARY_DIR}/assimp-config-version.cmake"
+#     "${CMAKE_CURRENT_BINARY_DIR}/assimpTargets.cmake"
+#     ${PACKAGE_TARGETS_FILE}
+#     DESTINATION "${ASSIMP_LIB_INSTALL_DIR}/cmake/assimp-${ASSIMP_VERSION_MAJOR}.${ASSIMP_VERSION_MINOR}" COMPONENT ${LIBASSIMP-DEV_COMPONENT})
+# ENDIF(HUNTER_ENABLED)
 
 FIND_PACKAGE( DirectX )
 
@@ -581,8 +581,8 @@ IF ( ASSIMP_BUILD_TESTS )
 ENDIF ( ASSIMP_BUILD_TESTS )
 
 # Generate a pkg-config .pc for the Assimp library.
-CONFIGURE_FILE( "${PROJECT_SOURCE_DIR}/assimp.pc.in" "${PROJECT_BINARY_DIR}/assimp.pc" @ONLY )
-INSTALL( FILES "${PROJECT_BINARY_DIR}/assimp.pc" DESTINATION ${ASSIMP_LIB_INSTALL_DIR}/pkgconfig/ COMPONENT ${LIBASSIMP-DEV_COMPONENT})
+# CONFIGURE_FILE( "${PROJECT_SOURCE_DIR}/assimp.pc.in" "${PROJECT_BINARY_DIR}/assimp.pc" @ONLY )
+# INSTALL( FILES "${PROJECT_BINARY_DIR}/assimp.pc" DESTINATION ${ASSIMP_LIB_INSTALL_DIR}/pkgconfig/ COMPONENT ${LIBASSIMP-DEV_COMPONENT})
 
 IF(CMAKE_CPACK_COMMAND AND UNIX AND ASSIMP_OPT_BUILD_PACKAGES)
   # Packing information

@@ -28,15 +28,15 @@ add_custom_command(
     )
 
 if( DEFINED CMAKE_INSTALL_DOCDIR )
-    install(
-        DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${HTML_OUTPUT}
-        DESTINATION ${CMAKE_INSTALL_DOCDIR}
-    )
-    install(FILES
-        ${CMAKE_CURRENT_SOURCE_DIR}/AssimpDoc_Html/AnimationOverview.png
-        ${CMAKE_CURRENT_SOURCE_DIR}/AssimpDoc_Html/AnimationOverview.svg
-        ${CMAKE_CURRENT_SOURCE_DIR}/AssimpDoc_Html/dragonsplash.png
-        DESTINATION ${CMAKE_INSTALL_DOCDIR}/${HTML_OUTPUT}
-    )
+    # install(
+    #     DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${HTML_OUTPUT}
+    #     DESTINATION ${CMAKE_INSTALL_DOCDIR}
+    # )
+    # install(FILES
+    #     ${CMAKE_CURRENT_SOURCE_DIR}/AssimpDoc_Html/AnimationOverview.png
+    #     ${CMAKE_CURRENT_SOURCE_DIR}/AssimpDoc_Html/AnimationOverview.svg
+    #     ${CMAKE_CURRENT_SOURCE_DIR}/AssimpDoc_Html/dragonsplash.png
+    #     DESTINATION ${CMAKE_INSTALL_DOCDIR}/${HTML_OUTPUT}
+    # )
 endif( DEFINED CMAKE_INSTALL_DOCDIR )
 
