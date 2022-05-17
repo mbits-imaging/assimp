@@ -679,7 +679,7 @@ ELSE()
       #   FRAMEWORK DESTINATION ${ASSIMP_LIB_INSTALL_DIR}
       #   COMPONENT ${LIBASSIMP_COMPONENT}
       #   INCLUDES DESTINATION include
-    )
+      # )
 
     ENDIF()
   ENDIF()
